@@ -1,0 +1,54 @@
+﻿@model RegistrationInputModel
+
+<div class="register-page">
+    <div class="page-header">
+        <h1>Register</h1>
+    </div>
+
+    <partial name="_ValidationSummary" />
+
+    @{
+        if (Model.ErrorList != null && Model.ErrorList.Count() > 0)
+        {
+        <div class="alert alert-danger">
+            <strong>Error</strong>
+            @foreach (var item in Model.ErrorList)
+            {
+                <div class="danger">@item.Code : @item.Description</div>
+            }
+        </div>
+        }
+    }
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form asp-route="Register">
+                        <input type="hidden" asp-for="ReturnUrl" />
+                        <fieldset>
+                            <div class="form-group">
+                                <label asp-for="Username">User Name</label>
+                                <input class="form-control" placeholder="Username" asp-for="Username" autofocus>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Password"></label>
+                                <input type="password" class="form-control" placeholder="Password" asp-for="Password" autocomplete="off">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="ConfirmPassword">Confirm Password</label>
+                                <input type="password" class="form-control" placeholder="ConfirmPassword" asp-for="ConfirmPassword" autocomplete="off">
+                            </div>
+
+                            <div class="form-group">
+                                <button class="btn btn-primary" name="button" value="login">Sign Up</button>
+                            </div>
+
+                            Already have an account?  <a asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl">Sign in</a>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

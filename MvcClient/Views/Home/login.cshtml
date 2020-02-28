@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewData["Title"] = "Secret";
+}
+@using Microsoft.AspNetCore.Authentication;
+
+<h1>Secret page </h1>
+
+<br />
+<table>
+
+    @foreach (var claim in User.Claims)
+    {
+        <tr>
+            <td>@claim.Type</td>
+            <td>@claim.Value</td>
+        </tr>
+    }
+</table>
+
+<br />
+<h3>access token</h3>
+<h6>@await ViewContext.HttpContext.GetTokenAsync("access_token")</h6>
+
+<br />
+<h3>refresh token</h3>
+<h6>@await ViewContext.HttpContext.GetTokenAsync("refresh_token")</h6>
+
+
+<br />
+<h3>Properties</h3>
+
+<table>
+
+    @foreach (var prop in (await Context.AuthenticateAsync()).Properties.Items)
+    {
+        <tr>
+            <td>@prop.Key</td>
+            <td>@prop.Value</td>
+        </tr>
+    }
+</table>
+
+<br />
+<h3>WebApi Resource</h3>
+
+<p>@ViewBag.result</p>
+
